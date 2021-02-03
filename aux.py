@@ -1,4 +1,4 @@
-import Gnuplot # Libreria de ploteo
+from pygnuplot import gnuplot # Libreria de ploteo
 import numpy # Manejo de vectores
 import sys # Lee archivos
 
@@ -69,7 +69,7 @@ def calcular_posiciones(vertices, fuerzas, posiciones, ancho, alto):
 
 # Crea la ventana
 def setwindow(ancho, alto, margen):
-    g = Gnuplot.Gnuplot()
+    g = gnuplot.Gnuplot()
     g('set title "GRAFO"')
     g('set terminal wxt size ' + str(ancho) + ', ' + str(alto))
     g('set xrange [' + str((-ancho/2)-margen) + ':' + str((ancho/2)+margen) + ']; set yrange [' + str((-alto/2)-margen) + ':' + str((alto/2)+margen) + ']')

@@ -1,8 +1,7 @@
-#! /usr/bin/python2
+#! /usr/bin/python3
 
 # sudo apt install gnuplot
-# pip install numpy
-# http://gnuplot-py.sourceforge.net/
+# pip install numpy py-gnuplot
 
 from numpy import array # Manejo de vectores
 from time import sleep # Funcion Sleep
