@@ -12,7 +12,7 @@ from aux import *
 
 def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa, fin, step, verbose, stop, epsilon, gravedad):
     '''
-    Dado un grafo (en formato de listas), aplica el algoritmo de 
+    Dado un grafo (en formato de listas), aplica el algoritmo de
     Fruchtermann-Reingold para obtener (y mostrar) un layout
     '''
     # Variables auxiliares
@@ -35,7 +35,7 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
         print("Vertice:\tPosicion:")
         for v in posiciones:
             print(v, "\t\t", posiciones[v])
-        
+
     # Bucle principal
     for i in range(iteraciones):
         calcular_repulsion(vertices, fuerzas, posiciones, k, epsilon)
@@ -50,17 +50,17 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
         if total/len(vertices) < stop:
             if verbose:
                 print("Finalizado por promedio de fuerzas debil:", total/len(vertices))
-            break          
+            break
 
         # Dibuja el frame
         if step and not (i % step):
             if verbose:
-              print("\nITERACION " + str(i))
-              print("==============")
-              print("Fuerzas promedio: " + str(total/len(vertices)))
-              print("Fuerzas:\t\tPosiciones:")
-              for vertice, fuerza in fuerzas.items():
-                print(vertice + " [" + str(int(fuerza[0])) + "  " + str(int(fuerza[1])) + "]\t\t[" + str(int(posiciones[vertice][0])) + " " + str(int(posiciones[vertice][1])) + "]")
+                print("\nITERACION " + str(i))
+                print("==============")
+                print("Fuerzas promedio: " + str(total/len(vertices)))
+                print("Fuerzas:\t\tPosiciones:")
+                for vertice, fuerza in fuerzas.items():
+                    print(vertice + " [" + str(int(fuerza[0])) + "  " + str(int(fuerza[1])) + "]\t\t[" + str(int(posiciones[vertice][0])) + " " + str(int(posiciones[vertice][1])) + "]")
 
             dibujar(vertices, posiciones, aristas, g, diametro, margen)
             sleep(pausa)
@@ -70,7 +70,7 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
         g = setwindow(ancho, alto, margen)
     dibujar(vertices, posiciones, aristas, g, diametro, margen)
     sleep(fin)
-   
+
 def main():
     a = parse() # Manejo de linea de comandos
 
@@ -78,6 +78,6 @@ def main():
     grafo = lee_grafo_archivo(a.file_name)
     run_layout(grafo, a.width, a.height, a.diameter, a.margin, a.iters, a.ratio, a.pause, a.end, a.frame_skip, a.verbose, a.stop, a.epsilon, a.gravity)
     return
- 
+
 if __name__ == "__main__":
     main()

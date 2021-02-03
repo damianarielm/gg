@@ -6,14 +6,14 @@ import sys # Lee archivos
 def lee_grafo_archivo(file_path):
     vertices = []
     aristas = []
-    
+
     with open(file_path, 'r') as f:
         cantidad = int(f.readline()) # Lee la primer linea
 
         # Lee vertices
         for i in range(cantidad):
             vertices = vertices + f.readline().split()
-            
+
         # Lee las aristas
         for line in f:
             if len(line.split()) == 3: # Grafo con peso en las aristas
@@ -92,5 +92,5 @@ def dibujar(vertices, posiciones, aristas, g, diametro, margen):
         g('set arrow ' + str(indice+len(vertices)*2) + ' nohead from ' + str(posiciones[u][0]) + ', ' + str(posiciones[u][1]) + ' to ' + str(posiciones[v][0]) + ', ' + str(posiciones[v][1]))
         if len(arista) > 2:
             g('set label ' + str(indice+len(vertices)*2+1) + '"' + str(arista[2]) + '" at ' + str(midpoint[0]+margen) + ', ' + str(midpoint[1]))
-                
+
     g('replot')
