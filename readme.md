@@ -1,8 +1,8 @@
 # Dependencias
 
-Para poder correr la aplicacion necesitara contar con los programas gnuplot, 
-python3 y las librerias numpy y py-gnuplot. Puede utilizar los siguientes 
-comandos para instalarlos en Ubuntu:
+Para poder correr la aplicacion necesitara contar con los programas `gnuplot`, 
+`python3` y las librerias `numpy` y `py-gnuplot`. Puede utilizar los 
+siguientes comandos para instalarlos en Ubuntu:
 
 ```bash
 sudo apt install gnuplot python3
@@ -13,7 +13,7 @@ pip install numpy py-gnuplot
 Para ver intrucciones de uso puede escribir el comando:
 
 ```bash
-./gg -h
+./gg.py -h
 ```
 
 # Formato de grafos
