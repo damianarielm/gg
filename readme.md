@@ -5,7 +5,7 @@ Para poder correr la aplicacion necesitara contar con los programas `gnuplot`,
 siguientes comandos para instalarlos en Ubuntu:
 
 ```bash
-sudo apt install gnuplot python3
+sudo apt install gnuplot python3 python3-pip
 pip install numpy py-gnuplot
 ```
 # Uso
