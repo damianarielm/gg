@@ -16,12 +16,19 @@ Para ver intrucciones de uso puede escribir el comando:
 ./gg.py -h
 ```
 
+o puede probar directamente el programa con uno de los grafos de muestra 
+de la carpeta `grafos`, por ejemplo:
+
+```bash
+./gg.py grafos/g1.gr
+```
+
 # Formato de grafos
 
 El formato de archivo para almacenar un grafo consta de una primera linea 
 indicando el numero total de vertices, luego una linea por cada vertice 
-y finalmente una linea por cada arista, donde una arista son dos vertices 
-separados por un espacio.
+y finalmente una linea por cada arista seguida opcionalmente de una etiqueta, 
+donde una arista son dos vertices separados por un espacio.
 
 El siguiente ejemplo muestra como puede almacenarse en un archivo el grafo 
 completo K6:
