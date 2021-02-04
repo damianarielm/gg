@@ -1,24 +1,20 @@
 #! /usr/bin/python3
 
-# sudo apt install gnuplot
-# pip install numpy py-gnuplot
+from numpy     import array   # Manejo de vectores
+from time      import sleep   # Funcion Sleep
+from math      import sqrt    # Raiz cuadrada
+from random    import randint # Numeros aleatorios
+from lib.parse import parse   # Manejo de linea de comandos
+from lib.aux   import *
 
-from numpy import array # Manejo de vectores
-from time import sleep # Funcion Sleep
-from math import sqrt # Raiz cuadrada
-from random import randint # Numeros aleatorios
-from parse import parse # Manejo de linea de comandos
-from aux import *
-
-def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa, fin, step, verbose, stop, epsilon, gravedad):
-    '''
-    Dado un grafo (en formato de listas), aplica el algoritmo de
-    Fruchtermann-Reingold para obtener (y mostrar) un layout
-    '''
+'''
+Dado un grafo (en formato de listas), aplica el algoritmo de
+Fruchtermann-Reingold para obtener (y mostrar) un layout
+'''
+def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa, fin, step, verbose, stop, gravedad):
     # Variables auxiliares
     vertices, aristas = grafo
-    posiciones = {}
-    fuerzas = {}
+    posiciones, fuerzas = {}, {}
     k = sqrt(ancho * alto / len(vertices)) * tamano
 
     # Inicializa la ventana de dibujo
@@ -27,7 +23,8 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
 
     # Inicializa vertices en posiciones aleatorias
     for vertice in vertices:
-        posiciones[vertice] = array([randint(-ancho/2,ancho/2), randint(-alto/2,alto/2)])
+        posiciones[vertice] = array([ randint(-ancho / 2, ancho / 2),
+                                      randint(-alto / 2, alto / 2) ])
 
     if verbose:
         print("Posiciones iniciales:")
@@ -38,18 +35,16 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
 
     # Bucle principal
     for i in range(iteraciones):
-        calcular_repulsion(vertices, fuerzas, posiciones, k, epsilon)
-        calcular_atraccion(aristas, fuerzas, posiciones, k, epsilon)
+        calcular_repulsion(vertices, fuerzas, posiciones, k)
+        calcular_atraccion(aristas, fuerzas, posiciones, k)
         calcular_gravedad(fuerzas, vertices, posiciones, gravedad)
         calcular_posiciones(vertices, fuerzas, posiciones, ancho, alto)
 
         # Detiene el bucle si las fuerzas son debiles
-        total = 0
-        for vertice in vertices:
-            total += modulo(fuerzas[vertice])
-        if total/len(vertices) < stop:
+        total = sum(map(modulo, fuerzas.values()))
+        if total // len(vertices) <= stop:
             if verbose:
-                print("Finalizado por promedio de fuerzas debil:", total/len(vertices))
+                print("Finalizado por promedio de fuerzas debil:", total / len(vertices))
             break
 
         # Dibuja el frame
@@ -57,7 +52,7 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
             if verbose:
                 print("\nITERACION " + str(i))
                 print("==============")
-                print("Fuerzas promedio: " + str(total/len(vertices)))
+                print("Fuerzas promedio: " + str(total / len(vertices)))
                 print("Fuerzas:\t\tPosiciones:")
                 for vertice, fuerza in fuerzas.items():
                     print(vertice + " [" + str(int(fuerza[0])) + "  " + str(int(fuerza[1])) + "]\t\t[" + str(int(posiciones[vertice][0])) + " " + str(int(posiciones[vertice][1])) + "]")
@@ -72,11 +67,14 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
     sleep(fin)
 
 def main():
-    a = parse() # Manejo de linea de comandos
+    # Manejo de linea de comandos
+    a = parse()
 
     # Ejecutamos el layout
     grafo = lee_grafo_archivo(a.file_name)
-    run_layout(grafo, a.width, a.height, a.diameter, a.margin, a.iters, a.ratio, a.pause, a.end, a.frame_skip, a.verbose, a.stop, a.epsilon, a.gravity)
+    run_layout(grafo, a.width, a.height, a.diameter, a.margin,
+                      a.iters, a.ratio, a.pause, a.end, a.frame_skip,
+                      a.verbose, a.stop, a.gravity)
     return
 
 if __name__ == "__main__":
