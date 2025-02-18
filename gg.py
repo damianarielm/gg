@@ -1,5 +1,3 @@
-#! /usr/bin/python3
-
 from numpy     import array   # Manejo de vectores
 from time      import sleep   # Funcion Sleep
 from math      import sqrt    # Raiz cuadrada
@@ -23,8 +21,8 @@ def run_layout(grafo, ancho, alto, diametro, margen, iteraciones, tamano, pausa,
 
     # Inicializa vertices en posiciones aleatorias
     for vertice in vertices:
-        posiciones[vertice] = array([ randint(-ancho / 2, ancho / 2),
-                                      randint(-alto / 2, alto / 2) ])
+        posiciones[vertice] = array([ randint(-ancho // 2, ancho // 2),
+                                      randint(-alto // 2, alto // 2) ])
 
     if verbose:
         print("Posiciones iniciales:")
